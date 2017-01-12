@@ -1,0 +1,36 @@
+extends ../..//layout
+block content
+    script(src='/javascripts/NICEditor/nicEdit.js')
+    .container.modal-page-main
+        include ../../includes/topMenu
+        h1 添加文章
+        .container
+            form(method='POST',action='/newBack/article/addSubmit',enctype='multipart/form-data').form-horizontal
+                input(type='hidden',name='id',value='#{article.id}')
+                input(type='hidden',name='minIcon',value='#{article.minIcon}')
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 文章标题：
+                    .col-md-10.col-sm-10
+                        input(type='text',placeholder='请输入标题',name='articleTitle',value='#{article.articleTitle}').form-control
+                        -console.log(article.articleTitle)
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 文章简介：
+                    .col-md-10.col-sm-10
+                        input(type='text',placeholder='请输入简介',name='articleDesc',value='#{article.articleDesc}').form-control
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 文章图标：
+                    .col-md-10.col-sm-10
+                        input(type='file',name='fileName').form-control
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 文章内容：
+                    .col-md-10.col-sm-10
+                        textarea#txtContent(placeholder='请输入内容',style='width:100%;outline:none;',rows='30',name='articleContent') #{article.articleContent}
+                .form-group
+                    label.col-md-2.col-sm-2.control-label
+                    .col-md-10.col-sm-10
+                        .col-md-6.col-sm-6.text-right
+                            input.btn.btn-success(type='submit',value='提交')
+                        .col-md-6.col-sm-6.text-left
+                            input.btn.btn-danger(type='reset',value='重置')
+
+    include ../../includes/articleHeader

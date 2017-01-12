@@ -1,0 +1,9 @@
+@charset "utf-8";
+@import "component/reset";
+@import "component/common";
+@import "component/top_bar";
+@import "component/top_menu_white";
+@import "component/title_bar";
+.btn-wrap .btn {
+  margin: 0 8px;
+}

@@ -1,0 +1,48 @@
+extends ../..//layout
+
+block content
+    .container.modal-page-main
+        include ../../includes/topMenu
+        h1 添加用户
+        .container
+            form(method='POST',action='/user/addUserSubmit').form-horizontal
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 用户名：
+                    .col-md-10.col-sm-10
+                        input.form-control(type='text',placeholder='请输入用户名',name='userName')
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 密码：
+                    .col-md-10.col-sm-10
+                        input.form-control(type='password',placeholder='请输入密码',name='password')
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 确认密码：
+                    .col-md-10.col-sm-10
+                        input.form-control(type='password',placeholder='确认密码')
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 性别：
+                    .col-md-10.col-sm-10
+                        input(type='radio',name='gender',value='0',checked)
+                        span 男
+                        |&nbsp;&nbsp;
+                        input(type='radio',name='gender',value='1')
+                        span 女
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 手机号码：
+                    .col-md-10.col-sm-10
+                        input.form-control(type='text',name='phone',placeholder='请输入手机号码')
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 用户类型：
+                    .col-md-10.col-sm-10
+                        select.form-control(name='role')
+                            option(value='0') 普通会员
+                            option(value='1') VIP会员
+                            option(value='2') 管理员
+                .form-group
+                    label.col-md-2.col-sm-2.control-label
+                    .col-md-10.col-sm-10
+                        .col-md-6.col-sm-6.text-right
+                            input.btn.btn-success(type='submit',value='提交')
+                        .col-md-6.col-sm-6.text-left
+                            input.btn.btn-danger(type='reset',value='重置')
+
+    include ../../includes/userHeader

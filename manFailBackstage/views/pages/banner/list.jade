@@ -1,0 +1,32 @@
+extends ../../layout
+block content
+
+    .container.modal-page-main
+        include ../../includes/topMenu
+        h1 #{title}
+        table.table.table-bordered.table-striped.table-hover.text-center
+            thead
+                tr
+                    th.text-center  ID
+                    th.text-center 标题
+                    th.text-center url
+                    th.text-center 图片
+                    th.text-center 创建时间
+                    th.text-center(style='width:200px') 编辑
+            tbody
+                each list in lists
+                    tr(id='#{list.id}')
+                        td #{list.id}
+                        td
+                            a(href='/newBack/article/detail/#{list.id}') #{list.title}
+                        td #{list.url}
+                        td
+                            img(src='#{list.url}',style='width:24px;height:24px;')
+                        td
+                            -if (list.createDate != null && list.createDate instanceof Date);
+                            =util.formatDate(list.createDate)
+                        td.btn-wrap
+                            a.btn.btn-danger.js_del(href='javascript:;') 删除
+        .text-right
+            a.btn.btn-success(href='/newBack/banner/add') 添加图片
+    include ../../includes/bannerHeader

@@ -1,0 +1,106 @@
+.head-menu.head-menu-border.row
+    .wrap.clearfix
+        .logo.fl
+            span.iconfont &#xe661;
+        ul.menu.fr.clearfix
+            li.top-menu-home.UserCmpHome(onclick="window.location.href='http://edit.52liezheng.com:80/gk52Edit/usercenter/editor/act\
+      ion/EditorHome!admin.action'")
+                .parent-menu
+                    p
+                        span.icon.iconfont &#xe603;
+                    p
+                        span.text &nbsp;&nbsp;&nbsp;主页&nbsp;&nbsp;&nbsp;
+            li.top-menu-appreciation.serviceshow.product
+                .parent-menu
+                    p
+                        span.icon.iconfont &#xe600;
+                    p
+                        span.text 轮播图管理
+                .sub-menu
+                    .top-bg
+                        p.arrows-icon
+                            span.icon
+                        p.top-line
+                    ul.sub-menu-con
+                        li.sub-menu-title
+                            span
+                                | 管理
+                        li.sub-menu-item.no-border
+                            a(href="/newBack/banner/add")
+                                i.menu-dot
+                                span 新增
+                        li.sub-menu-item.no-border
+                            a(href="/newBack/banner/list")
+                                i.menu-dot
+                                span 列表
+            li.top-menu-appreciation.serviceshow.product
+                .parent-menu
+                    p
+                        span.icon.iconfont &#xe600;
+                    p
+                        span.text 文章管理
+                .sub-menu
+                    .top-bg
+                        p.arrows-icon
+                            span.icon
+                        p.top-line
+                    ul.sub-menu-con
+                        li.sub-menu-title
+                            span
+                                | 文文章管理
+                        li.sub-menu-item.no-border
+                            a(href="/newBack/article/add")
+                                i.menu-dot
+                                span 新增文章
+                        li.sub-menu-item.no-border
+                            a(href="/newBack/article/list")
+                                i.menu-dot
+                                span 文章列表
+            li.top-menu-appreciation.serviceshow.product
+                .parent-menu
+                    p
+                        span.icon.iconfont &#xe606;
+                    p
+                        span.text 用户管理
+                .sub-menu
+                    .top-bg
+                        p.arrows-icon
+                            span.icon
+                        p.top-line
+                    ul.sub-menu-con
+                        li.sub-menu-title
+                            span
+                                | 用户管理
+                        li.sub-menu-item.no-border
+                            a(href="/newBack/user/add")
+                                i.menu-dot
+                                span 新增用户
+                        li.sub-menu-item.no-border
+                            a(href="/newBack/user/list")
+                                i.menu-dot
+                                span 用户列表
+
+            li.top-menu-setting.sysconfig
+                .parent-menu
+                    p
+                        span.icon.iconfont &#xe605;
+                    p
+                        span.text 系统设置
+                .sub-menu
+                    .top-bg
+                        p.arrows-icon
+                            span.icon
+                        p.top-line
+                    ul.sub-menu-con
+                        li.sub-menu-title
+                            span
+                                | 登录/退出
+                        li.sub-menu-item
+                            a(href="/newBack/user/login")
+                                i.menu-dot
+                                span 登录
+                        li.sub-menu-item
+                            a(href="/newBack/user/logout")
+                                i.menu-dot
+                                span 退出
+include ./title_bar

@@ -1,0 +1,35 @@
+extends ../../layout
+block content
+
+    .container.modal-page-main
+        include ../../includes/topMenu
+        h1 用户列表
+        table.table.table-bordered.table-striped.table-hover.text-center
+            thead
+                tr
+                    th.text-center  ID
+                    th.text-center 用户名
+                    th.text-center 角色
+                    th.text-center 性别
+                    th.text-center 手机
+                    th.text-center(style='width:200px') 编辑
+            tbody
+              each list in lists
+                  tr(id='#{list.userId}')
+                    td(data-name='userId') #{list.userId}
+                    td(data-name='userName') #{list.userName}
+                    td(data-name='role')
+                        if (list.role == 0)
+                            |普通会员
+                        else if (list.role == 1)
+                            |VIP会员
+                        else if(list.role == 2)
+                            |管理员
+                    td(data-name='gender') #{list.gender == 0 ? '男' : '女'}
+                    td(data-name='phone') #{list.phone}
+                    td.btn-wrap
+                        a.btn.btn-success.js_update(href='javascript:;') 编辑
+                        a.btn.btn-danger.js_del(href='javascript:;') 删除
+        .text-right
+            a.btn.btn-success(href='/user/add') 增加用户
+    include ../../includes/userHeader

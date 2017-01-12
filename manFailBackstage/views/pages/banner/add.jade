@@ -1,0 +1,27 @@
+extends ../..//layout
+block content
+    .container.modal-page-main
+        include ../../includes/topMenu
+        h1 #{title}
+        .container
+            form(method='POST',action='/newBack/banner/addSubmit',enctype='multipart/form-data').form-horizontal
+                input(type='hidden',name='id',value='#{banner.id}')
+                input(type='hidden',name='url',value='#{banner.id}')
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 标题：
+                    .col-md-10.col-sm-10
+                        input(type='text',placeholder='请输入标题',name='title',value='#{banner.title}').form-control
+                        -console.log(banner.title)
+                .form-group
+                    label.col-md-2.col-sm-2.control-label 文章内容：
+                    .col-md-10.col-sm-10
+                        input(type='file',name="fileName")
+                .form-group
+                    label.col-md-2.col-sm-2.control-label
+                    .col-md-10.col-sm-10
+                        .col-md-6.col-sm-6.text-right
+                            input.btn.btn-success(type='submit',value='提交')
+                        .col-md-6.col-sm-6.text-left
+                            input.btn.btn-danger(type='reset',value='重置')
+
+    include ../../includes/bannerHeader

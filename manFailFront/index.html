@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>newsFront</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <!--<link rel='stylesheet' href="src/assets/font/iconfont.css">-->
+    <script>
+      let html = document.documentElement;
+
+      window.rem = html.getBoundingClientRect().width / 25 ;
+      //window.rem = html.getBoundingClientRect().width / 16 ;
+      html.style.fontSize = window.rem + 'px';
+
+      /**
+       * 这里基于宽 320px 的屏幕分成了 16 份，也就是 1rem = 20px，目前大多数设计稿都是根据 iphone6 的宽（ 375px ）走的，建议大家在这里分成 25 份，也就是 1rem = 15px，计算起来方便些。
+
+       简单说下 rem 原理：根据 html 的 fontSize 属性值为基准，其它所有的 rem 值，根据这个基准计算。
+
+       我们根据屏幕宽度用 js 动态修改了 html 的 fontSize 属性值，达到移动端适配的目的
+       */
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

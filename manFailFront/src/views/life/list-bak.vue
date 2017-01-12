@@ -1,0 +1,206 @@
+<template>
+  <div id="wrapper" style="overflow: hidden;">
+    <div id="scroller" style="transition-property: transform; transform-origin: 0px 0px 0px; transform: translate(0px, -51px) scale(1) translateZ(0px);">
+      <div id="pullDown" class="">
+        <span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span>
+      </div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的 新数据</div><div class="item">根据市场奖惩制度，结合市场各部门提供的 新数据</div><div class="news-lists" id="news-lists">
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的数据</div>
+      <div class="item">根据市场奖惩制度，结合市场各部门提供的 新数据</div><div class="item">根据市场奖惩制度，结合市场各部门提供的 新数据</div></div>
+      <div id="pullUp" class="">
+        <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+      </div>
+    </div>
+  </div>
+</template>
+<style>
+.top{
+			top: 0;
+		}
+		.footer{
+			bottom: 0;
+		}
+		.top,.footer{
+			position: fixed;
+			left: 0;
+			text-align: center;
+			line-height: 50px;
+			height: 50px;
+			width: 100%;
+			background-color: #0dcecb;
+			z-index: 100;
+		}
+		#wrapper{
+			position: absolute;
+			left: 0;
+			top: 50px;
+			bottom: 50px;
+			width: 100%;
+			background-color: #fafafa;
+			z-index: 10;
+			min-height:100.25%;
+		}
+		.news-lists .item{
+			height: 40px;
+			line-height: 40px;
+			border-bottom: 1px solid #CFCFCF;
+		}
+		.news-lists{
+			position: relative;
+		}
+		#pullDown, #pullUp {
+			background:#fff;
+			height:40px;
+			line-height:40px;
+			padding:5px 10px;
+			border-bottom:1px solid #ccc;
+			font-weight:bold;
+			font-size:14px;
+			color:#888;
+		}
+		#pullDown .pullDownIcon, #pullUp .pullUpIcon  {
+			display:block; float:left;
+			width:40px; height:40px;
+			background:url(http://sandbox.runjs.cn/uploads/rs/200/ptvnx6ur/pull-icon@2x.png) 0 0 no-repeat;
+			-webkit-background-size:40px 80px;
+			background-size:40px 80px;
+			-webkit-transition-property:-webkit-transform;
+			-webkit-transition-duration:250ms;
+		}
+		#pullDown .pullDownIcon {
+			-webkit-transform:rotate(0deg) translateZ(0);
+		}
+		#pullUp .pullUpIcon  {
+			-webkit-transform:rotate(-180deg) translateZ(0);
+		}
+
+		#pullDown.flip .pullDownIcon {
+			-webkit-transform:rotate(-180deg) translateZ(0);
+		}
+
+		#pullUp.flip .pullUpIcon {
+			-webkit-transform:rotate(0deg) translateZ(0);
+		}
+
+		#pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon {
+			background-position:0 100%;
+			-webkit-transform:rotate(0deg) translateZ(0);
+			-webkit-transition-duration:0ms;
+
+			-webkit-animation-name:loading;
+			-webkit-animation-duration:2s;
+			-webkit-animation-iteration-count:infinite;
+			-webkit-animation-timing-function:linear;
+		}
+
+		@-webkit-keyframes loading {
+			from { -webkit-transform:rotate(0deg) translateZ(0); }
+			to { -webkit-transform:rotate(360deg) translateZ(0); }
+		}
+</style>
+<script>
+    import IScroll from  'assets/iscroll'
+    export default{
+        data(){
+            return{
+                msg:'hello vue'
+            }
+        },
+        mounted(){
+        console.log('0-0')
+          var data,
+		myScroll,
+		pullDownEl, pullDownOffset,
+		pullUpEl, pullUpOffset,
+		generatedCount = 0;
+
+	function pullDownAction () {
+		$.getJSON('/uploads/rs/200/ptvnx6ur/test.json', function (data, state) {
+			if (data && data.state == 1 && state == 'success') {
+				//本地测试，为了看到加载中效果故加上定时器
+				setTimeout(function () {
+					$('#news-lists').before(data.data);
+					myScroll.refresh();
+				}, 600);
+			}
+		});
+	}
+
+	function pullUpAction () {
+
+		$.getJSON('/uploads/rs/200/ptvnx6ur/test.json', function (data, state) {
+			if (data && data.state == 1 && state == 'success') {
+				//本地测试，为了看到加载中效果故加上定时器
+				setTimeout(function () {
+					$('#news-lists').append(data.data);
+					myScroll.refresh();
+				}, 600);
+			}
+		});
+	}
+
+	//初始化绑定iScroll控件
+  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	document.addEventListener('DOMContentLoaded', loaded, false);
+
+	function loaded() {
+		pullDownEl = document.getElementById('pullDown');
+		pullDownOffset = pullDownEl.offsetHeight;
+		pullUpEl = document.getElementById('pullUp');
+		pullUpOffset = pullUpEl.offsetHeight;
+
+		/**
+		 * 初始化iScroll控件
+		 */
+		myScroll = new IScroll.iScroll('wrapper', {
+			vScrollbar : true,
+			topOffset : pullDownOffset,
+			onRefresh : function () {
+				if (pullDownEl.className.match('loading')) {
+					pullDownEl.className = '';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+				} else if (pullUpEl.className.match('loading')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+				}
+			},
+			onScrollMove: function () {
+				if (this.y > 5 && !pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'flip';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+					this.minScrollY = 0;
+				} else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'flip';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+				}
+			},
+			onScrollEnd: function () {
+				if (pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'loading';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';
+					pullDownAction();
+				} else if (pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'loading';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
+					pullUpAction();
+				}
+			}
+		});
+	}
+        }
+    }
+</script>

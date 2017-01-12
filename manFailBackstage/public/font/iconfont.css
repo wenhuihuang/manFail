@@ -1,0 +1,40 @@
+
+@font-face {
+  font-family: 'iconfont';  /* project id 199222 */
+  src: url('//at.alicdn.com/t/font_8ebcvm2h5b3xr.eot');
+  src: url('//at.alicdn.com/t/font_8ebcvm2h5b3xr.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_8ebcvm2h5b3xr.woff') format('woff'),
+  url('//at.alicdn.com/t/font_8ebcvm2h5b3xr.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_8ebcvm2h5b3xr.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:26px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-chanpincanshu:before { content: "\e600"; }
+
+.icon-guanyuwo:before { content: "\e601"; }
+
+.icon-home:before { content: "\e602"; }
+
+.icon-31shouye:before { content: "\e603"; }
+
+.icon-31chanpincanshu:before { content: "\e604"; }
+
+.icon-31shezhi:before { content: "\e605"; }
+
+.icon-31haoyou:before { content: "\e606"; }
+
+.icon-shouyefill:before { content: "\e750"; }
+
+.icon-shouye:before { content: "\e751"; }
+
+.icon-xiangzuo1:before { content: "\e779"; }
+
+.icon-caidan:before { content: "\e790"; }
+

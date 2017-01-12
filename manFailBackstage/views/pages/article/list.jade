@@ -1,0 +1,36 @@
+extends ../../layout
+block content
+
+    .container.modal-page-main
+        include ../../includes/topMenu
+        h1 #{title}
+        table.table.table-bordered.table-striped.table-hover.text-center
+            thead
+                tr
+                    th.text-center  ID
+                    th.text-center 标题
+                    th.text-center 发布时间
+                    th.text-center 更新时间
+                    th.text-center 发布人
+                    th.text-center(style='width:200px') 编辑
+            tbody
+                each list in lists
+                    tr(id='#{list.id}')
+                        td #{list.id}
+                        td
+                            a(href='/newBack/article/detail/#{list.id}') #{list.articleTitle}
+                        td
+                            -if (list.createTime != null && list.updateTime instanceof Date);
+                            =util.formatDate(list.createTime)
+
+
+                        td
+                            -if (list.updateTime != null && list.updateTime instanceof Date);
+                            =util.formatDate(list.updateTime)
+                        td #{list.articleAuthor}
+                        td.btn-wrap
+                            a.btn.btn-success(href='/newBack/article/update/#{list.id}') 修改
+                            a.btn.btn-danger.js_del(href='javascript:;') 删除
+        .text-right
+            a.btn.btn-success(href='/newBack/article/add') 发表文章
+    include ../../includes/articleHeader

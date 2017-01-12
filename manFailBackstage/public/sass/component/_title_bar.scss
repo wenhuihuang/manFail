@@ -1,0 +1,17 @@
+@charset "utf-8";
+.title-bar{
+  .fl{
+    height:56px;
+    line-height:56px;
+    text-align:center;
+    color:#fff;
+    font-size:24px;
+    width:25%;
+    background:#e4ba11 url(../img/title_bg.png) no-repeat center right;
+  }
+  .fr{
+    width:75%;
+    height:56px;
+    background:#339933;
+  }
+}

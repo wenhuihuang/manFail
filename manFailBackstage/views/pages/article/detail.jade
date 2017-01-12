@@ -1,0 +1,23 @@
+extends ../../layout
+block content
+
+    .container.modal-page-main
+        include ../../includes/topMenu
+        h1 文章详情
+        .row
+            h5 #{article.articleTitle}
+        .row
+            .col-md-4.col-sm-4
+                span 创建时间
+                span #{article.createTime}
+            .col-md-4.col-sm-4
+                span 更新时间
+                span #{article.updateTime}
+            .col-md-4.col-sm-4
+                span 作者
+                span #{article.articleAuthor}
+        .row
+            #{article.startContainer}
+
+
+    include ../../includes/articleHeader
