@@ -6,10 +6,12 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "deploy": "set NODE_ENV=production&&webpack -p --progress --colors"
   },
   "dependencies": {
     "babel-polyfill": "^6.20.0",
+    "lrz": "^4.9.40",
     "moment": "^2.17.1",
     "vee-validate": "^2.0.0-beta.17",
     "vue": "^2.1.0",

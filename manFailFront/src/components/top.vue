@@ -1,7 +1,7 @@
 <template>
     <div id='top' class="top">
        <span class="top-back" v-on:click="back"><i class="icon iconfont">&#xe779;</i></span>
-       <h4 class="top-title">标题</h4>
+       <h4 class="top-title">{{topTitle}}</h4>
        <span class="top-menu"><i class="icon iconfont">&#xe790;</i></span>
     </div>
 </template>
@@ -35,11 +35,13 @@
 
 </style>
 <script>
+  import { mapGetters } from 'vuex'
+  import { mapActions } from 'vuex'
     export default{
-        data(){
-            return{
-                msg:'hello vue'
-            }
+        computed : {
+          ...mapGetters({
+            topTitle: 'getTopTitle'
+          })
         },
         methods : {
           back ()  {

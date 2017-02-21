@@ -7,6 +7,7 @@ import bottomBtn from './modules/bottomBtn'
 import article from './modules/article'
 import banner from './modules/banner'
 import user from './modules/user'
+import common from './modules/common'
 
 
 Vue.use(Vuex)
@@ -18,7 +19,8 @@ export default new Vuex.Store({
     bottomBtn,
     article,
     banner,
-    user
+    user,
+    common
   },
   strict: debug
 })

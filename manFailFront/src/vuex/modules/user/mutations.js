@@ -1,7 +1,13 @@
 import {
   LOGIN_SUCCESS,
   CHANGE_USER_NAME,
-  CHANGE_USER_PASSWORD
+  CHANGE_USER_PASSWORD,
+  CHANGE_IS_LOGIN,
+  FETCH_USER_SUCCESS,
+  LOGOUT,
+  CHANGE_NICKNAME,
+  CHANGE_BIRTHDAY,
+  CHANGE_PHONE
 } from './mutation-type'
 import cookieUtil from '../../../utils/cookieUtil'
 
@@ -15,6 +21,27 @@ const mutations = {
   [LOGIN_SUCCESS] (state,userInfo) {
     state.userInfo=userInfo
     cookieUtil.setCookie('token',userInfo.token,userInfo.expires)
+  },
+  [CHANGE_IS_LOGIN] (state,isLogin) {
+    state.isLogin=isLogin
+  },
+  [FETCH_USER_SUCCESS] (state,userInfo){
+    state.userInfo=userInfo
+  },
+  [CHANGE_NICKNAME] (state, nickname){
+    state.userInfo.nickname=nickname;
+  },
+  [CHANGE_PHONE] (state, phone){
+    state.userInfo.phone=phone
+  },
+  [CHANGE_BIRTHDAY] (state,birthday){
+    state.userInfo.birthday = birthday;
+  },
+  [LOGOUT] (state) {
+    cookieUtil.delCookie('token');
+    state.userInfo={};
+    state.isLogin=false;
+    state.userName="";
   }
 }
 export default mutations

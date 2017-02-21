@@ -207,6 +207,7 @@
           },
           publishComment () {
             this.$store.dispatch('submitArticleComment',this.$store.state.article.comment)
+
           }
         },
         directives: {

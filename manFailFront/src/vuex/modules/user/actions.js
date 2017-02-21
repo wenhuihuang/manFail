@@ -8,6 +8,7 @@
  */
 import vue from 'vue'
 import cookieUtil from "../../../utils/cookieUtil"
+import lrz from "lrz"
 
 export const  login = ({commit},user) => {
   vue.http.post('/API/newBack/user/apiLogin', user, { //Access-Control-Allow-Origin: *
@@ -27,6 +28,14 @@ export const  login = ({commit},user) => {
   })
 }
 
+export const logout = ({commit}) => {
+  commit('LOGOUT')
+}
+
+/**
+ * 从数据库中获取用户数据
+ * @param commit
+ */
 export const fetchUserInfo = ({commit}) => {
   const token = cookieUtil.getCookie('token');
   vue.http({
@@ -39,12 +48,94 @@ export const fetchUserInfo = ({commit}) => {
     //console.log(response)
     //成功后
     if(response.status == '200'){
-      console.log(response.body)
-      //return commit('LOGIN_SUCCESS',response.body);
+      return commit('FETCH_USER_SUCCESS',response.body);
     }
   },(response) => {
     //失败后
     console.log(response);
+  })
+}
+
+export const changeNickname = ({commit} , nickname) => {
+  commit('CHANGE_NICKNAME',nickname);
+}
+
+/**
+ * 修改头像
+ * @param commit
+ * @param obj
+ */
+export const uploadHeadImg = ({commit},obj) => {
+  let fileReader = new FileReader(),imgData;
+  let file = document.querySelector('#'+obj.headImgFile).files[0]
+  fileReader.readAsDataURL(file)
+  fileReader.onload=function () {
+    //lrz 压缩图片
+    lrz(this.result)
+      .then(function (rst) {
+        // 处理成功会执行
+        let formData = new FormData();
+        formData.append('imgData',rst.base64)
+        formData.append('userId',obj.userId)
+        vue.http.patch(
+          '/API/newBack/user/apiUploadHeadImg',formData
+        ).then((response) => {
+          //成功后
+          commit('FETCH_USER_SUCCESS',response.body);
+        })
+
+
+
+      })
+      .catch(function (err) {
+        // 处理失败会执行
+      })
+      .always(function () {
+        // 不管是成功失败，都会执行
+      });
+
+
+
+  }
+
+}
+
+/**
+ * 修改昵称
+ * @param commit
+ * @param obj
+ */
+export const updateNickname = ({commit},obj) => {
+  vue.http.post(
+    '/API/newBack/user/apiUpdateNickname',obj
+  ).then((response) => {
+    //成功后
+    commit('FETCH_USER_SUCCESS',response.body);
+  })
+}
+export const changeBirthday = ({commit}, birthday) => {
+  commit('CHANGE_BIRTHDAY',birthday);
+}
+export const changePhone = ({commit}, phone) => {
+  commit('CHANGE_PHONE',phone);
+}
+
+export const updateBirthday = ({commit},obj) => {
+  vue.http.post(
+    '/API/newBack/user/apiUpdateBirthday',
+    obj
+  ).then((response) => {
+    commit('FETCH_USER_SUCCESS',response.body);
+  })
+}
+
+export const updatePhone = ({commit}, obj) => {
+  vue.http.post(
+    '/API/newBack/user/apiUpdatePhone',
+    obj
+  ).then((response) => {
+    //成功
+    commit('FETCH_USER_SUCCESS',response.body);
   })
 }
 

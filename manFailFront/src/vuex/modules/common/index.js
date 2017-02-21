@@ -6,9 +6,7 @@ import * as getters from './getters'
 import mutations from './mutations'
 
 const state = {
-  userName : "",
-  userInfo:{},
-  isLogin:false
+  topTitle : 'menfail' //顶部标题
 }
 
 export default{

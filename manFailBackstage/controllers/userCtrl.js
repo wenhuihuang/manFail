@@ -2,6 +2,7 @@ var userDao = require('../dao/userDao');
 var jwt = require('jwt-simple')
 var moment = require('moment')
 
+
 var userCtrl = {
     addUser : function (req,res,next) {
         res.render('user/userAdd',{
@@ -115,7 +116,6 @@ var userCtrl = {
         },next)
     },
     jwtAuth : function (req,res,next) {
-        console.log('进入了啊随叫随到')
         var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
         if(token){
             try{
@@ -132,6 +132,18 @@ var userCtrl = {
         }else{
             next();
         }
+    },
+    uploadHeadImg : function (req,res,next) {
+        userDao.uploadHeadImg(req,res,next);
+    },
+    updateNickname : function (req,res) {
+        userDao.updateNickname(req,res)
+    },
+    updateBirthday : function (req,res) {
+        userDao.updateBirthday(req,res);
+    },
+    updatePhone : function (req,res) {
+        userDao.updatePhone(req,res)
     }
 }
 module.exports = userCtrl;

@@ -7,10 +7,12 @@ import router from './routes/router'
 
 import App from './views/index/App.vue'
 
+
 import filter from './utils/filter'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
+
 
 /*Vue.validator('tel', function (val) {
   return /^[0-9]{11}$/.test(val)

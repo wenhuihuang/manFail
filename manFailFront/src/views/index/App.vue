@@ -28,19 +28,14 @@ export default {
 }
 </script>
 
-<style lang="scss">
-      @import "../../assets/css/base.css";
-      @import "../../assets/font/iconfont.css";
-      *{
-        padding:0;
-        margin:0;
-      }
+<style lang="sass">
+      @import "../../assets/sass/base.sass"
+      @import "../../assets/sass/common.sass"
+      @import "../../assets/font/iconfont.sass"
 
-      #app{
-        padding-top:42px;
-        padding-bottom:42px;
-
-      }
+      #app
+        padding-top: 42px
+        padding-bottom: 42px
 
 
 
