@@ -7,8 +7,10 @@ import mutations from './mutations'
 
 const state = {
   userName : "",
-  userInfo:{},
-  isLogin:false
+  password:'',
+  userInfo:{code:'',msg:''},
+  isLogin:false,
+  loginErrorInfo:{}
 }
 
 export default{

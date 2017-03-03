@@ -9,7 +9,9 @@ const state = {
   list: [],
   detail : {},
   comments:[],
-  comment:{commentText:"1212"}
+  comment:{commentText:"1212"},
+  isShowComment:false,
+  likes : {}
 }
 
 export default{

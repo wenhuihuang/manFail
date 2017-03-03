@@ -36,7 +36,7 @@
     <div class="comment-content-wrap" v-show="isShowComment">
       <div class="comment-content-cover" @click="hideComment"></div>
       <div class="comment-content">
-        <textarea rows='3' cols='20' class="comment-text" v-focus="isShowComment" v-model="commentText"></textarea>
+        <textarea rows='3' cols='20' placeholder="请输入评论" class="comment-text" v-focus="isShowComment" v-model="commentText"></textarea>
         <div class="comment-tools">
           <a href="javascript:;" class="publish-btn" @click="publishComment">发表</a>
         </div>
@@ -168,7 +168,7 @@
     export default{
         data(){
             return{
-              isShowComment : false
+             // isShowComment : false
             }
         },
         mounted () {
@@ -185,7 +185,9 @@
         computed : {
           ...mapGetters({
             detail : "getArticleDetail",
-            comment : "getArticleComment"
+            comment : "getArticleComment",
+            isShowComment : 'getIsShowComment',
+            userInfo : 'getUser'
           }),
           commentText : {
             get () {
@@ -200,12 +202,28 @@
         /*  ...mapActions ({
           }),*/
           showComment (){
-            this.isShowComment = true;
+            this.$store.dispatch('checkLogin');
+            let isLogin = this.$store.getters.getIsLogin
+            if(isLogin){
+              this.$store.dispatch('fetchUserInfo')
+              this.$store.dispatch('changeIsShowComment',true)
+            }else{
+              this.$router.push({ path: '/user/login' })
+            }
           },
           hideComment () {
-            this.isShowComment = false;
+            this.$store.dispatch('changeIsShowComment',false)
           },
           publishComment () {
+
+            var id = this.$route.params.id;
+           let obj = {
+              articleId : id,
+              userId : this.userInfo.userId,
+              commentText : this.commentText
+            };
+
+          this.$store.commit("UPDATE_ARTICLE_COMMENT",obj)
             this.$store.dispatch('submitArticleComment',this.$store.state.article.comment)
 
           }

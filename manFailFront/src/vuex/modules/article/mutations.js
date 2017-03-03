@@ -4,7 +4,8 @@ import {
   SUBMIT_COMMENT_SUCCESS,
   UPDATE_ARTICLE_COMMENT_TEXT,
   UPDATE_ARTICLE_COMMENT,
-  FETCH_ARTICLE_COMMENT_SUCCESS
+  FETCH_ARTICLE_COMMENT_SUCCESS,
+  CHANGE_IS_SHOW_COMMENT
 } from './mutation-type'
 
 const mutations = {
@@ -29,6 +30,9 @@ const mutations = {
   },
   [FETCH_ARTICLE_COMMENT_SUCCESS] (state,comments) {
     state.comments=comments
+  },
+  [CHANGE_IS_SHOW_COMMENT] (state,flag){
+    state.isShowComment=flag;
   }
 }
 export default mutations

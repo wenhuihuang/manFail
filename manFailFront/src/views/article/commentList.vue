@@ -15,17 +15,18 @@
         <ul>
           <li v-for="comment in comments" class="comment-item">
             <div class="head-img">
-              <img src="" />
+              <img :src="comment.headImg | proxyWebsite" />
             </div>
             <div class="commentList-comment-content">
               <div class="comment-content-top clearfix">
                 <div class="commentList-con-top-left">
-                  <p class="commentList-content-name">姓名</p>
+                  <p class="commentList-content-name">{{comment.nickname == '' ? comment.userName : comment.nickname}}</p>
                   <p class="commentList-content-time">{{comment.createDate | time}}</p>
                 </div>
                 <div class="commentList-like like">
-                  <span>88</span>
-                  <span class="icon"></span>
+                  <span>{{comment.likes | length}} </span>
+                  <span v-if="comment.like" class="icon iconfont">&#xe793;</span>
+                  <span v-else="comment.like" class="icon iconfont" @click="likeFn({'commentId' : comment.id,'like' : comment.like })">&#xe794;</span>
                 </div>
               </div>
               <div class="comment-content-bottom">
@@ -78,15 +79,9 @@
         .commentList-con-top-left
           flex: 1.0
         .commentList-like
-
-
-
-
-
-
-
-
-
+          span
+            display: inline-block
+            vertical-align: middle
 
 </style>
 <script>
@@ -94,16 +89,38 @@
     import { mapActions } from 'vuex'
     export default{
         mounted () {
-          var id = this.$route.params.id;
-          this.$store.dispatch('fetchArticleCommentList',id);
-          this.$store.dispatch('fetchArticleDetail',id);
+          let id = this.$route.params.id;
 
+          this.$store.dispatch('fetchArticleDetail',id);
+           //检查是否登录
+           this.$store.dispatch('checkLogin');
+            let isLogin = this.$store.getters.getIsLogin
+            if(isLogin){
+              this.$store.dispatch('fetchUserInfo')
+              this.$store.dispatch('changeIsShowComment',true)
+              this.$store.dispatch('fetchArticleCommentList',id);
+            }
         },
         computed : {
           ...mapGetters({
             comments : "getArticleComments",
-            article : "getArticleDetail"
+            article : "getArticleDetail",
+            userInfo : 'getUser'
           })
+        },
+        methods : {
+          likeFn (obj) {
+            var articleId = this.$route.params.id;
+            this.$store.dispatch('checkLogin');
+            let isLogin = this.$store.getters.getIsLogin
+            if(isLogin){
+                obj.articleId = articleId,
+              this.$store.dispatch('like',obj)
+            }else{
+              this.$router.push({ path: '/user/login' })
+            }
+
+          }
         }
     }
 </script>

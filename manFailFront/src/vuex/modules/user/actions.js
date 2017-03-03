@@ -10,18 +10,21 @@ import vue from 'vue'
 import cookieUtil from "../../../utils/cookieUtil"
 import lrz from "lrz"
 
-export const  login = ({commit},user) => {
-  vue.http.post('/API/newBack/user/apiLogin', user, { //Access-Control-Allow-Origin: *
+export const  login = ({commit},obj) => {
+  vue.http.post('/API/newBack/user/apiLogin', obj.user, { //Access-Control-Allow-Origin: *
       headers: {
 
       },
       emulateJSON: true
   }).then((response) => {
-      //console.log(response)
       //成功后
-      if(response.status == '200'){
-        return commit('LOGIN_SUCCESS',response.body);
+      if(response.status == 200 && response.body.code == 200){
+        commit('CHANGE_IS_LOGIN',true);
+        commit('LOGIN_SUCCESS',response.body);
+      }else{
+        commit('LOGIN_ERROR',response.body);
       }
+      obj.callback()
   },(response) => {
       //失败后
       console.log(response);
@@ -41,7 +44,7 @@ export const fetchUserInfo = ({commit}) => {
   vue.http({
     method:'POST',
     url:'/API/newBack/user/apiUserInfo',
-   // data:{'websiteId':2,'pageSize':20,'pageNo':1,'isTop':0},
+   // body:{'websiteId':2,'pageSize':20,'pageNo':1,'isTop':0},
     headers: {'x-access-token': token},
     emulateJSON: true
   }).then((response) => {
@@ -139,4 +142,15 @@ export const updatePhone = ({commit}, obj) => {
   })
 }
 
+export const changeIsLogin = ({commit}, flag) => {
+  commit('CHANGE_IS_LOGIN',flag)
+}
 
+export const checkLogin = ({commit}) => {
+  let token = cookieUtil.getCookie('token');
+  if(token != null && token != "" && token != undefined ){
+      commit('CHANGE_IS_LOGIN',true)
+  }else{
+      commit('CHANGE_IS_LOGIN',false)
+  }
+}

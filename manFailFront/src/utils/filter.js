@@ -14,3 +14,12 @@ Vue.filter('proxyWebsite',(v) => {
   const website = 'http://'+host+':3000/';
   return website + v;
 })
+
+//获取数据长度
+Vue.filter('length',(v) => {
+  if(v instanceof Array){
+    return v.length;
+  }else{
+    return 0;
+  }
+})

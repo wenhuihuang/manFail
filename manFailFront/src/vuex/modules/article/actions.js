@@ -7,6 +7,7 @@
  * @param isShow
  */
 import vue from 'vue'
+import cookieUtil from 'utils/cookieUtil'
 export const  fetchArticleList = ({commit}) => {
 
   vue.http.get('/API/newBack/article/apiList', {}, { //Access-Control-Allow-Origin: *
@@ -43,7 +44,6 @@ export const fetchArticleDetail = ({commit},id) => {
 }
 
 export const submitArticleComment = ({commit},obj) => {
-  console.log(obj)
     vue.http.post(
        "/API/newBack/article/apiSubmitComment",
        obj
@@ -51,6 +51,7 @@ export const submitArticleComment = ({commit},obj) => {
     .then(
       (response) => {
         if(response.status == '200'){
+          commit('CHANGE_IS_SHOW_COMMENT',false)
          // return commit('SUBMIT_COMMENT_SUCCESS',response.body);
         }
       },
@@ -61,11 +62,72 @@ export const submitArticleComment = ({commit},obj) => {
 }
 
 export const fetchArticleCommentList = ({commit},id) => {
-  vue.http.get('/API/newBack/article/apiCommentList/'+id)
+  let token = cookieUtil.getCookie('token');
+  vue.http({
+    method:'POST',
+    url:'/API/newBack/article/apiCommentList',
+     body:{"id":id},
+    headers: {"X-Requested-With": "XMLHttpRequest","x-access-token": token},
+  emulateJSON: true
+
+    })
+    .then(
+      (response) => {
+        console.log(response)
+        if(response.status == '200'){
+
+          return commit('FETCH_ARTICLE_COMMENT_SUCCESS',response.body);
+        }
+      },
+      (response) => {
+        console.log("网络出错："+response)
+      }
+    )
+}
+
+export const changeIsShowComment = ({commit},flag) => {
+  commit('CHANGE_IS_SHOW_COMMENT',flag)
+}
+
+//点赞
+export const like = ({commit},obj) => {
+  console.log(obj)
+  let token = cookieUtil.getCookie('token');
+  vue.http({
+    method : "POST",
+    url : "/API/newBack/article/apiAddLike",
+    headers : {"x-access-token" : token},
+    emulateJSON:true,
+    body:obj
+  })
     .then(
       (response) => {
         if(response.status == '200'){
-          return commit('FETCH_ARTICLE_COMMENT_SUCCESS',response.body);
+          commit('CHANGE_IS_SHOW_COMMENT',false)
+          // return commit('SUBMIT_COMMENT_SUCCESS',response.body);
+        }
+      },
+      (response) => {
+        console.log("网络出错："+response)
+      }
+    )
+}
+
+//取消点赞
+export const delLike = ({commit},obj) => {
+
+}
+
+//获取评论
+export const fetchLikes = ({commit},obj) => {
+  vue.http.post(
+    "/API/newBack/article/apiLikes",
+    obj
+  )
+    .then(
+      (response) => {
+        if(response.status == '200'){
+
         }
       },
       (response) => {

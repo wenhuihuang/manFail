@@ -2,7 +2,7 @@
     <div class="user">
         <div class="user-top">
           <!--已经登录-->
-          <div class="is-login" v-show="isLogin">
+          <div class="is-login" v-if="isLogin">
             <div class="use-manage-info">
               <p>
                 <router-link class="head-icon" :to="{name:'userModify',params:{id:userInfo.userId}}">
@@ -10,7 +10,7 @@
                 </router-link>
               </p>
               <p class="use-manage-name">
-                <span>{{userInfo.nickname == "" ?  'userInfo.userName' : userInfo.nickname}}</span>
+                <span>{{userInfo.nickname == "" ?  userInfo.userName : userInfo.nickname}}</span>
               </p>
             </div>
             <ul class="user-manage-item-wrap">
@@ -22,7 +22,7 @@
             </ul>
           </div>
           <!--没有登录-->
-          <div class="no-login" v-show="!isLogin">
+          <div class="no-login" v-else="!isLogin">
             <div class="use-manage-info">
               <router-link to="/user/login" class="login-btn">登录</router-link>
             </div>
@@ -96,7 +96,7 @@
             this.$store.dispatch('fetchUserInfo')
             this.$store.commit('CHANGE_IS_LOGIN',true)
           }else{
-            this.$store.commit('CHANGE_IS_LOGIN',false)
+            this.$store.dispatch('changeIsLogin',false)
           }
         },
         computed : {
