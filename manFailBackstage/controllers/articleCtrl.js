@@ -65,6 +65,12 @@ var articleCtrl = {
     },
     commentList : function (req,res,next) {
         articleDao.commentList(req,res,next);
+    },
+    likes : function (req,res,next) {
+        articleDao.likes(req,res,next);
+    },
+    addLike : function (req,res,next) {
+        articleDao.addLike(req,res,next)
     }
 }
 module.exports = articleCtrl;

@@ -23,7 +23,9 @@ router.post('/del',articleCtrl.del);
 router.get('/apiList',articleCtrl.apiList);
 router.get('/apiDetail/:id',articleCtrl.apiDetail);
 
-router.post('/apiSubmitComment',articleCtrl.submitComment)
-router.get('/apiCommentList/:id',articleCtrl.commentList)
+router.post('/apiSubmitComment',articleCtrl.submitComment);
+router.post('/apiCommentList',userCtrl.jwtAuth,articleCtrl.commentList);
+router.post('/apiLikes',articleCtrl.likes);
+router.post('/apiAddLike',userCtrl.jwtAuth,articleCtrl.addLike);
 
 module.exports = router;

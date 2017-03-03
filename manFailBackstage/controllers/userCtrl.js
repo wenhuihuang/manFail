@@ -86,7 +86,7 @@ var userCtrl = {
                 var pwd = result[0].password;
                 console.log(pwd)
                 if(pwdText == pwd){
-                    console.log('成功')
+                    console.log('登录成功')
                     //如果验证成功
                     var expires = moment().add(0.5,'days').valueOf();
                     /**
@@ -100,22 +100,39 @@ var userCtrl = {
                         'newsFront' //newsFront
                     );
                     res.json({
+                        code : 200,
                         token : token,
                         expires : expires,
                         user : {
                             userId : result[0].userId,
-                            userName : result[0].userName
+                            userName : result[0].userName,
+                            gender : result[0].gender,
+                            phone : result[0].phone,
+                            role : result[0].role,
+                            headImg : result[0].headImg,
+                            nickname : result[0].nickname,
+                            birthday : result[0].birthday
                         }
+                    })
+                }else{
+                    //密码不正确
+                    res.send({
+                        code : 401,
+                        msg : "密码不正确！"
                     })
                 }
 
             }else{
-                res.send("登录失败",401)
+                res.send({
+                    code : 401,
+                    msg : "用户不存在！"
+                })
             }
 
         },next)
     },
     jwtAuth : function (req,res,next) {
+        console.log('进入身份验证！--')
         var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
         if(token){
             try{
@@ -124,7 +141,7 @@ var userCtrl = {
                     res.end('Access token has expired',400);
                 }
                 req.userId = decoded.iss
-                userDao.queryById(req,res)
+                next();
 
             }catch (err){
                 return next();
@@ -132,6 +149,9 @@ var userCtrl = {
         }else{
             next();
         }
+    },
+    fetchUser : function (req,res,next) {
+        userDao.queryById(req,res)
     },
     uploadHeadImg : function (req,res,next) {
         userDao.uploadHeadImg(req,res,next);

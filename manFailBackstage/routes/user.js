@@ -12,7 +12,7 @@ router.post('/update',userCtrl.updateUser);
 router.post('/del',userCtrl.delUser)
 
 router.post('/apiLogin',userCtrl.apiLogin)
-router.post('/apiUserInfo',userCtrl.jwtAuth)
+router.post('/apiUserInfo',userCtrl.jwtAuth,userCtrl.fetchUser)
 
 router.patch('/apiUploadHeadImg',multipart(),userCtrl.uploadHeadImg)
 router.post('/apiUpdateNickname',userCtrl.updateNickname)

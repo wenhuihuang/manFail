@@ -4,6 +4,6 @@ var articleComment = {
     update : 'update articleComment set articleId=?,userId=?,commentText=?,createDate=? where id = ?',
     queryAll : 'select * from articleComment',
     queryById : 'select * from articleComment where id = ?',
-    queryByArticleId : 'select * from articleComment where articleId = ?'
+    queryByArticleId : 'SELECT * from articleComment where articleId = ?'
 }
 module.exports = articleComment;

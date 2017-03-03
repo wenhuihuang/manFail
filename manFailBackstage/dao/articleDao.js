@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var db = require('../conf/db');
 var articleSql = require('../sqlMap/articleSql');
 var articleCommentSql = require('../sqlMap/articleCommentSql');
+var likesSql = require('../sqlMap/likesSql');
 var util = require('../util/util');
 
 var fileUploadCtrl = require('../controllers/fileUploadCtrl');
@@ -139,18 +140,73 @@ module.exports = {
         })
     },
     commentList : function (req,res,next) {
-        var params = req.params;
+        var params = req.body;
         var id = params.id;
+        console.log(req)
         pool.getConnection(function (err,connection) {
             if(err) console.log(err);
+            var allLikes;
             connection.query(articleCommentSql.queryByArticleId,[id],function (err,result) {
                 if(err) console.log(err);
                 if(result){
-                    util.responseJONS(res,result);
+                    connection.query(likesSql.queryByArticleId,[id],function (err,resu) {
+                        if(err) console.log(err);
+
+                        allLikes=resu;
+
+                        for(var i = 0,resultLength=result.length; i < resultLength;i++){
+                            for(var j = 0,likesLength=allLikes.length; j < likesLength;j++){
+                                //查出当前文章的每一条评论的点赞记录
+                                if(result[i].id == allLikes[j].commentId && result[i].articleId == allLikes[j].articleId){
+                                    result[i].likes= result[i].likes instanceof Array ?  result[i].likes.concat([allLikes[j]]) : [allLikes[j]];
+
+                                    //判断当前的评论该用户是否点赞过
+                                    if(allLikes[j].userId == req.userId){
+                                        result[i].like = true
+                                    }else{
+                                        result[i].like = false;
+                                    }
+                                }
+
+
+                            }
+                        }
+
+
+
+                        util.responseJONS(res,result);
+
+                    })
+
                 }
 
                 //释放连接
                 connection.release();
+            })
+        })
+    },
+    addLike : function (req,res,next) {
+        var params = req.body || req.params;
+        console.log(req)
+        pool.getConnection(function (err,connection) {
+            connection.query(likesSql.insert,[params.commentId,parseInt(params.articleId),1,util.formatDate(Date.now()),req.userId],function (err,result) {
+
+            })
+        })
+    },
+    delLike : function (req,res,next) {
+        var params = req.body || req.params;
+        console.log(params)
+        pool.getConnection(function (err,connection) {
+            connection.query(likesSql.queryByArticleId,[params.commentId],function (err,result) {
+
+            })
+        })
+    },
+    _likeCount : function (req,res,next) {
+        pool.getConnection(function (err,connection) {
+            connection.query(likesSql.count,[params.commentId],function (err,result) {
+
             })
         })
     }
