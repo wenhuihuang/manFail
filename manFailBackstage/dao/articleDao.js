@@ -142,13 +142,14 @@ module.exports = {
     commentList : function (req,res,next) {
         var params = req.body;
         var id = params.id;
-        console.log(req)
         pool.getConnection(function (err,connection) {
             if(err) console.log(err);
             var allLikes;
+            //查出文件的所有评论
             connection.query(articleCommentSql.queryByArticleId,[id],function (err,result) {
                 if(err) console.log(err);
                 if(result){
+                    //先按文章id查出评论点赞
                     connection.query(likesSql.queryByArticleId,[id],function (err,resu) {
                         if(err) console.log(err);
 
@@ -156,14 +157,16 @@ module.exports = {
 
                         for(var i = 0,resultLength=result.length; i < resultLength;i++){
                             for(var j = 0,likesLength=allLikes.length; j < likesLength;j++){
-                                //查出当前文章的每一条评论的点赞记录
+                                //匹配当前文章的每一条评论的点赞记录
                                 if(result[i].id == allLikes[j].commentId && result[i].articleId == allLikes[j].articleId){
                                     result[i].likes= result[i].likes instanceof Array ?  result[i].likes.concat([allLikes[j]]) : [allLikes[j]];
 
                                     //判断当前的评论该用户是否点赞过
+                                    console.log(allLikes[j].userId)
+                                    console.log(req.userId)
                                     if(allLikes[j].userId == req.userId){
                                         result[i].like = true
-                                    }else{
+                                    }else if(!result[i].like){
                                         result[i].like = false;
                                     }
                                 }
@@ -186,12 +189,45 @@ module.exports = {
         })
     },
     addLike : function (req,res,next) {
+        console.log(req.body)
         var params = req.body || req.params;
-        console.log(req)
+        var _this = this;
         pool.getConnection(function (err,connection) {
-            connection.query(likesSql.insert,[params.commentId,parseInt(params.articleId),1,util.formatDate(Date.now()),req.userId],function (err,result) {
+
+            connection.query(likesSql.queryBycommentIdArticleUserId,[params.commentId,params.articleId,req.userId],function (err,result) {
+                if(err) console.log(err);
+                if(result && result.length > 0){
+                    //如果点赞了则取消点赞
+                    connection.query(likesSql.delById,[result[0].id],function (err,result) {
+                        if(err) console.log(err);
+                        if(result){
+
+                            /*res.json({
+                                articleId : params.articleId,
+                                commentId : params.commentId,
+                                like : false
+                            })*/
+                            req.body.id=params.articleId;
+                            _this.commentList(req,res,next)
+                        }
+                    })
+
+                }else{
+                    //如果没有点赞过则点赞
+                    connection.query(likesSql.insert,[params.commentId,parseInt(params.articleId),1,util.formatDate(Date.now()),req.userId],function (err,result) {
+                       /* res.json({
+                            articleId : params.articleId,
+                            commentId : params.commentId,
+                            like : true
+                        })*/
+                        req.body.id=params.articleId;
+                        _this.commentList(req,res,next)
+                    })
+                }
 
             })
+
+
         })
     },
     delLike : function (req,res,next) {

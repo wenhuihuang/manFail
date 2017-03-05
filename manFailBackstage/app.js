@@ -20,6 +20,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views/pages'));
 app.set('view engine', 'jade');
 
+
 //app.set('jwtTokenSecret','newsFront')
 
 // uncomment after placing your favicon in /public
@@ -31,7 +32,7 @@ app.use(cookieParser());
 app.use(session({
   secret : '12345',
   name : 'manFail', //这里的name值是cookie的name，默认cookie的name是：connect.sid
-  cookie : {maxAge : 80000}, //设置maxAge是80000ms，即80s后session和相应的cookie失效过期
+  cookie : {maxAge : 800000}, //设置maxAge是80000ms，即80s后session和相应的cookie失效过期
   resave : false,
   saveUninitialized : false,
   rolling:true

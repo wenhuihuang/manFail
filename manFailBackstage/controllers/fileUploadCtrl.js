@@ -23,19 +23,20 @@ var fileUploadCtrl = {
         var y = date.getFullYear();
         var m = date.getMonth()+1;
         var d = date.getDate();
+        var t = ''+date.getHours()+date.getMinutes()+date.getSeconds();
         console.log(d.toString().length)
         var subDir = ''+y+('00'+m).substring(m.toString().length)+('00'+d).substring(d.toString().length)
 
         //copy file to a common directory
-        if(!fs.existsSync(path.dirname(__filename).replace('\controllers','') + '/common/images/'+subDir+'/')){
-            fs.mkdirSync(path.dirname(__filename).replace('\controllers','') + '/common/images/'+subDir+'/')
+        if(!fs.existsSync('public/images/'+subDir+'/')){
+            fs.mkdirSync('public/images/'+subDir+'/')
         }
-        var targetPath = path.dirname(__filename).replace('\controllers','') + '/common/images/'+subDir+'/' + filename;
+        var targetPath = 'public/images/'+subDir+'/' +subDir+t+'.'+ filename.split('.')[1];
         //copy file
         fs.createReadStream(req.files.fileName.path).pipe(fs.createWriteStream(targetPath));
         //return file url
         //res.json({code: 200, msg: {url: 'http://' + req.headers.host + '/' + filename}});
-        callback('/images/'+subDir+'/' + filename)
+        callback('/images/'+subDir+'/' + +subDir+t+ '.'+filename.split('.')[1])
     },
     base64Upload : function (req,res,callback) {
       /* var form = new multiparty.Form();
@@ -68,9 +69,7 @@ var fileUploadCtrl = {
 
     }, //用绝对路径删除文件
     delFile : function(url){
-        console.log(path.dirname(__filename).replace('\controllers','')+ 'common')
-        var filePath = path.dirname(__filename).replace('\controllers','') + 'common'+url;
-        console.log(filePath)
+        var filePath = 'public'+url;
         fs.unlinkSync(filePath);
     }, //用相对路径删除文件
     delFileTwo : function (url) {

@@ -1,6 +1,8 @@
 var userDao = require('../dao/userDao');
 var jwt = require('jwt-simple')
 var moment = require('moment')
+var express = require('express');
+var app = express();
 
 
 var userCtrl = {
@@ -97,7 +99,7 @@ var userCtrl = {
                         iss : result[0].userId,
                         exp : expires
                     },
-                        'newsFront' //newsFront
+                        'jwtTokenSecret' //newsFront
                     );
                     res.json({
                         code : 200,
@@ -135,8 +137,9 @@ var userCtrl = {
         console.log('进入身份验证！--')
         var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
         if(token){
+           console.log('入进token if')
             try{
-                var decoded = jwt.decode(token,'newsFront') //newsFront
+                var decoded = jwt.decode(token,'jwtTokenSecret') //newsFront
                 if(decoded.exp <= Date.now()){
                     res.end('Access token has expired',400);
                 }

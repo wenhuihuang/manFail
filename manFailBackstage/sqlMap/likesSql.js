@@ -5,6 +5,7 @@ var likes = {
     queryAll : 'select * from likes',
     queryByCommentId : 'select * from likes where commentId = ?',
     queryByArticleId: 'select * from likes where articleId = ?',
-    count : 'select count(*) from likes where commentId = ?'
+    count : 'select count(*) from likes where commentId = ?',
+    queryBycommentIdArticleUserId : 'select * from likes where commentId = ? and articleId = ? and userId = ? '
 }
 module.exports = likes;

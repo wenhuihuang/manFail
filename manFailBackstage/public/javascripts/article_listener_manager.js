@@ -72,8 +72,5 @@ hwh.ListenerMgr = (function(){
 
 $(function(){
     hwh.ListenerMgr.run();
-    //初始化编辑器
-    //bkLib.onDomLoaded(function () {
-        new nicEditor({fullPanel : true}).panelInstance('txtContent')
-    //});
+    initSample();
 })
