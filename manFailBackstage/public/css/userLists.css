@@ -75,44 +75,44 @@ ul {
 .top-menu-home .icon {
   width: 30px;
   height: 30px;
-  background: url(../img/home_grey_icon.png) no-repeat center center; }
+  /*background: url(../img/home_grey_icon.png) no-repeat center center;*/ }
 .top-menu-home:hover .icon, .top-menu-home.active .icon {
-  background: url(../img/home_hover_icon.png) no-repeat center center; }
+  /*background: url(../img/home_hover_icon.png) no-repeat center center;*/ }
 
 .top-menu-job .icon {
   width: 30px;
   height: 30px;
-  background: url(../img/job_grey_icon.png) no-repeat center center; }
+  /*background: url(../img/job_grey_icon.png) no-repeat center center;*/ }
 .top-menu-job:hover .icon, .top-menu-job.active .icon {
-  background: url(../img/job_hover_icon.png) no-repeat center center; }
+  /*background: url(../img/job_hover_icon.png) no-repeat center center;*/ }
 
 .top-menu-employ .icon {
   width: 30px;
   height: 30px;
-  background: url(../img/yp_grey_icon.png) no-repeat center center; }
+  /*background: url(../img/yp_grey_icon.png) no-repeat center center;*/ }
 .top-menu-employ:hover .icon, .top-menu-employ.active .icon {
-  background: url(../img/yp_hover_icon.png) no-repeat center center; }
+  /*background: url(../img/yp_hover_icon.png) no-repeat center center;*/ }
 
 .top-menu-resume-search .icon {
   width: 30px;
   height: 30px;
-  background: url(../img/search_grey_icon.png) no-repeat center center; }
+  /*background: url(../img/search_grey_icon.png) no-repeat center center;*/ }
 .top-menu-resume-search:hover .icon, .top-menu-resume-search.active .icon {
-  background: url(../img/search_hover_icon.png) no-repeat center center; }
+  /*background: url(../img/search_hover_icon.png) no-repeat center center;*/ }
 
 .top-menu-info .icon {
   width: 30px;
   height: 30px;
-  background: url(../img/msg_grey_icon.png) no-repeat center center; }
+  /*background: url(../img/msg_grey_icon.png) no-repeat center center;*/ }
 .top-menu-info:hover .icon, .top-menu-info.active .icon {
-  background: url(../img/msg_hover_icon.png) no-repeat center center; }
+  /*background: url(../img/msg_hover_icon.png) no-repeat center center;*/ }
 
 .menu .top-menu-setting .icon {
   width: 30px;
   height: 30px;
-  background: url(../img/setting_grey_icon.png) no-repeat center center; }
+  /*background: url(../img/setting_grey_icon.png) no-repeat center center;*/ }
 .menu .top-menu-setting:hover .icon, .menu .top-menu-setting.active .icon {
-  background: url(../img/setting_hover_icon.png) no-repeat center center; }
+  /*background: url(../img/setting_hover_icon.png) no-repeat center center;*/ }
 .menu .top-menu-setting .sub-menu {
   left: auto;
   right: 0; }
@@ -201,9 +201,9 @@ ul {
 .top-menu-appreciation .icon {
   width: 30px;
   height: 30px;
-  background: url(../img/add_grey_icon.png) no-repeat center center; }
+  /*background: url(../img/add_grey_icon.png) no-repeat center center;*/ }
 .top-menu-appreciation:hover .icon, .top-menu-appreciation.active .icon {
-  background: url(../img/add_hover_icon.png) no-repeat center center; }
+  /*background: url(../img/add_hover_icon.png) no-repeat center center;*/ }
 
 .sub-menu-title {
   color: #333;

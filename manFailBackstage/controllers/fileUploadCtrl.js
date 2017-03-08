@@ -16,6 +16,10 @@ var fileUploadCtrl = {
      */
     upload : function(req, res,callback){
         console.log(req.files.fileName)
+        if(req.files.fileName.size <= 0){
+            callback(false)
+            return;
+        }
         // res.send(req.body,req.files,req.files.file.path);
         //get filename
         var filename = req.files.fileName.originalFilename || path.basename(req.files.fileName.path);

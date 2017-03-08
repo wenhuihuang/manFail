@@ -11,9 +11,9 @@ import cookieUtil from 'utils/cookieUtil'
 export const  fetchArticleList = ({commit}) => {
 
   vue.http.get('/API/newBack/article/apiList', {}, { //Access-Control-Allow-Origin: *
-      headers: {
+ /*     headers: {
 
-      },
+      },*/
       emulateJSON: true
   }).then((response) => {
       //console.log(response)
@@ -63,11 +63,16 @@ export const submitArticleComment = ({commit},obj) => {
 
 export const fetchArticleCommentList = ({commit},id) => {
   let token = cookieUtil.getCookie('token');
+  if(token != null && token !=undefined && token != "") {
+    var head = {"X-Requested-With": "XMLHttpRequest","x-access-token":  token}
+  }else{
+    var head ={"X-Requested-With": "XMLHttpRequest"}
+  }
   vue.http({
     method:'POST',
     url:'/API/newBack/article/apiCommentList',
      body:{"id":id},
-    headers: {"X-Requested-With": "XMLHttpRequest","x-access-token": token},
+    headers: head,
   emulateJSON: true
 
     })
@@ -91,8 +96,9 @@ export const changeIsShowComment = ({commit},flag) => {
 
 //点赞
 export const like = ({commit},obj) => {
-  console.log(obj)
   let token = cookieUtil.getCookie('token');
+  //防止重复提交
+  commit('CHANGE_SUBMIT_COMPLETED',false);
   vue.http({
     method : "POST",
     url : "/API/newBack/article/apiAddLike",
@@ -103,8 +109,8 @@ export const like = ({commit},obj) => {
     .then(
       (response) => {
         if(response.status == '200'){
-          commit('CHANGE_IS_SHOW_COMMENT',false)
-          // return commit('SUBMIT_COMMENT_SUCCESS',response.body);
+          commit('FETCH_ARTICLE_COMMENT_SUCCESS',response.body);
+          commit('CHANGE_SUBMIT_COMPLETED',true);
         }
       },
       (response) => {

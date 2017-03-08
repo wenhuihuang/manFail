@@ -1,5 +1,5 @@
 <template>
-    <div id='top' class="top">
+    <div id='top' v-bind:class="classObject">
        <span class="top-back" v-on:click="back"><i class="icon iconfont">&#xe779;</i></span>
        <h4 class="top-title">{{topTitle}}</h4>
        <span class="top-menu"><i class="icon iconfont">&#xe790;</i></span>
@@ -21,6 +21,14 @@
         top:0;
         background:#fff;
         z-index:100;
+      -webkit-transition: all .6s;
+      -moz-transition: all .6s;
+      -ms-transition: all .6s;
+      -o-transition: all .6s;
+      transition: all .6s;
+    }
+    .top-hidden{
+    transform: translate3d(0,-44px,0)
     }
     .top-back,.top-menu{
         width:50px;
@@ -40,8 +48,15 @@
     export default{
         computed : {
           ...mapGetters({
-            topTitle: 'getTopTitle'
-          })
+            topTitle: 'getTopTitle',
+            touchDirection : 'getTouchDirection'
+          }),
+          classObject () {
+            return {
+              'top' : true,
+              'top-hidden' : this.touchDirection == "up"
+            }
+          }
         },
         methods : {
           back ()  {

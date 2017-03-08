@@ -8,6 +8,8 @@
  */
 import vue from 'vue'
 export const  setTopTitle = ({commit},data) => {
-  return commit('SET_TOP_TITLE',data)
-
-}
+  return commit('SET_TOP_TITLE',data);
+};
+export const changeTouchDirection = ( { commit }, direction) => {
+  commit('CHANGE_TOUCH_DIRECTION',direction);
+};

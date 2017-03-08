@@ -12,28 +12,28 @@ import NicknameModify from '../views/user/nicknameModify.vue'
 import BirthdayModify from '../views/user/birthdayModify.vue'
 import PhoneModify from '../views/user/phoneModify.vue'
 
-
+const projectDir = '/manFail';
 //创建一个路由
 const router = new VueRouter({
     mode : 'history',
     base : __dirname,
     routes : [
         {
-          path : '/',
+          path : projectDir+'/',
           component : ArticleList,
           meta : {
             pageTitle : "新闻列表"
           }
         },
         {
-            path :'/article/list',
+            path :projectDir+'/article/list',
             component : ArticleList,
             meta : {
               pageTitle: "新闻列表"
             }
         },
         {
-          path :'/article/detail/:id',
+          path :projectDir+'/article/detail/:id',
           name : 'articleDetail',
           component : ArticleDetail,
           meta : {
@@ -41,28 +41,28 @@ const router = new VueRouter({
           }
         },
         {
-            path : '/life/list',
+            path : projectDir+'/life/list',
             component : LifeList,
             meta : {
               pageTitle : "生活"
             }
         },
         {
-            path : '/shopping/list',
+            path : projectDir+'/shopping/list',
             component : ShoppingList,
             meta : {
               pageTitle : "购物"
             }
         },
         {
-            path : '/user/manage',
+            path : projectDir+'/user/manage',
             component : UserManage,
             meta : {
               pageTitle : "个人中心"
             }
         },
         {
-            path : '/comment/list/:id',
+            path : projectDir+'/comment/list/:id',
             name : 'articleComment',
             component : ArticleCommentList,
             meta : {
@@ -70,7 +70,7 @@ const router = new VueRouter({
             }
         },
         {
-          path : '/user/login',
+          path : projectDir+'/user/login',
           name : 'login',
           component : Login,
           meta : {
@@ -78,7 +78,7 @@ const router = new VueRouter({
           }
         },
         {
-          path : '/user/modify/:id',
+          path : projectDir+'/user/modify/:id',
           name : 'userModify',
           component : UserModify,
           meta : {
@@ -86,7 +86,7 @@ const router = new VueRouter({
           }
         },
         {
-          path : '/user/nicknameModify/:id',
+          path : projectDir+'/user/nicknameModify/:id',
           name : 'nicknameModify',
           component : NicknameModify,
           meta : {
@@ -94,7 +94,7 @@ const router = new VueRouter({
           }
         },
         {
-          path : '/user/birthdayModify/:id',
+          path : projectDir+'/user/birthdayModify/:id',
           name : 'birthdayModify',
           component : BirthdayModify,
           meta : {
@@ -102,7 +102,7 @@ const router = new VueRouter({
           }
         },
         {
-          path : '/user/phoneModify/:id',
+          path : projectDir+'/user/phoneModify/:id',
           name : 'phoneModify',
           component : PhoneModify,
           meta : {
@@ -137,8 +137,14 @@ let setTopTitle = title => {
 }
 
 router.beforeEach((to, from, next) => {
+  const vm =router.app.$root;
+  //跳转前修改标题
   typeof to.meta.pageTitle !== undefined && setDocumentTitle(to.meta.pageTitle)
   setTopTitle(to.meta.pageTitle)
+
+  //跳转前恢复顶部
+  vm.$store.dispatch('changeTouchDirection','down');
+
   next();
 })
 
@@ -150,6 +156,7 @@ router.beforeEach((to, from, next) => {
 })*/
 
 router.afterEach((to, from) => {
+
   const href = window.location.href
   const vm = router.app.$root;
   const actions = vm.$store.getters.getBottomBtnActives;

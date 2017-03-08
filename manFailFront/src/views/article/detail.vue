@@ -29,7 +29,7 @@
       </div>
       <router-link class="right" :to="{name:'articleComment',params:{id:comment.articleId}}">
         <span class="icon iconfont">&#xe689;</span>
-        <span>123</span>
+        <span>{{comments | length}}</span>
       </router-link>
     </div>
     <!--评论内容-->
@@ -174,6 +174,7 @@
         mounted () {
           var id = this.$route.params.id;
           this.$store.dispatch('fetchArticleDetail',id)
+          this.$store.dispatch('fetchArticleCommentList',id);
            let obj = {
               articleId : id,
               userId : "",
@@ -186,6 +187,7 @@
           ...mapGetters({
             detail : "getArticleDetail",
             comment : "getArticleComment",
+            comments : "getArticleComments",
             isShowComment : 'getIsShowComment',
             userInfo : 'getUser'
           }),
@@ -208,7 +210,7 @@
               this.$store.dispatch('fetchUserInfo')
               this.$store.dispatch('changeIsShowComment',true)
             }else{
-              this.$router.push({ path: '/user/login' })
+              this.$router.push({ path: '/manFail/user/login' })
             }
           },
           hideComment () {

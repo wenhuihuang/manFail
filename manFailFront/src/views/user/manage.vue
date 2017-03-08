@@ -10,7 +10,7 @@
                 </router-link>
               </p>
               <p class="use-manage-name">
-                <span>{{userInfo.nickname == "" ?  userInfo.userName : userInfo.nickname}}</span>
+                <span>{{userInfo.nickname == "" || userInfo.nickname == null ?  userInfo.userName : userInfo.nickname}}</span>
               </p>
             </div>
             <ul class="user-manage-item-wrap">
@@ -24,7 +24,7 @@
           <!--没有登录-->
           <div class="no-login" v-else="!isLogin">
             <div class="use-manage-info">
-              <router-link to="/user/login" class="login-btn">登录</router-link>
+              <router-link to="/manFail/user/login" class="login-btn">登录</router-link>
             </div>
           </div>
         </div>

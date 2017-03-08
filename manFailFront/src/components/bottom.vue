@@ -1,25 +1,25 @@
 <template>
     <div id='bottom' class="bottom">
         <div class="menu-item">
-           <a href="javascript:;" @click="clickAction('/article/list','0')" :class="{ active : current.index == 0 ? 1 : 0 }">
+           <a href="javascript:;" @click="clickAction('/manFail/article/list','0')" :class="{ active : current.index == 0 ? 1 : 0 }">
                <p><i class="icon iconfont" >&#xe751;</i></p>
                <p>首页</p>
            </a>
         </div>
         <div class="menu-item">
-            <a href="javascript:;" @click="clickAction('/life/list','1')" :class="{ active : current.index == 1 ? 1 : 0 }">
+            <a href="javascript:;" @click="clickAction('/manFail/life/list','1')" :class="{ active : current.index == 1 ? 1 : 0 }">
                 <p><i class="icon iconfont" >&#xe751;</i></p>
                 <p>生活</p>
             </a>
         </div>
         <div class="menu-item">
-            <a href="javascript:;" @click="clickAction('/shopping/list','2')" :class="{ active : current.index == 2 ? 1 : 0 }">
+            <a href="javascript:;" @click="clickAction('/manFail/shopping/list','2')" :class="{ active : current.index == 2 ? 1 : 0 }">
                 <p><i class="icon iconfont" >&#xe751;</i></p>
                 <p>购物</p>
             </a>
         </div>
         <div class="menu-item">
-            <a href="javascript:;" @click="clickAction('/user/manage','3')" :class="{ active : current.index == 3 ? 1 : 0 }">
+            <a href="javascript:;" @click="clickAction('/manFail/user/manage','3')" :class="{ active : current.index == 3 ? 1 : 0 }">
                 <p><i class="icon iconfont" >&#xe606;</i></p>
                 <p>我</p>
             </a>
@@ -79,8 +79,8 @@
           }
       },
       mounted () {
-        this.changeCurrent({index:0,url:"/article/list"})
-        this.changeActive({index:0,url:"/article/list"})
+        this.changeCurrent({index:0,url:"/manFail/article/list"})
+        this.changeActive({index:0,url:"/manFail/article/list"})
       }
     }
 </script>

@@ -72,5 +72,5 @@ hwh.ListenerMgr = (function(){
 
 $(function(){
     hwh.ListenerMgr.run();
-    initSample();
+
 })

@@ -7,7 +7,7 @@ export default {
    * @param {Object} name
    * @param {Object} value
    */
-  setCookie (name,value,t){
+  setCookie (name,value,t,path){
     if(t != null){
       var exp = new Date();
       exp.setTime(t)
@@ -16,8 +16,10 @@ export default {
       var exp = new Date();
       exp.setTime(exp.getTime() + Days*24*60*60*1000); //这个是毫秒
     }
-
-    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+    if(path == null || path == undefined){
+      path = '/'
+    }
+    document.cookie = name + "="+ encodeURIComponent (value) + ";expires=" + exp.toGMTString()+";path="+path;
   },
   /**
    * 获取cookie
@@ -34,11 +36,14 @@ export default {
    * 删除cookie
    * @param {Object} name
    */
-  delCookie (name){
+  delCookie (name,path){
     var exp = new Date();
     exp.setTime(exp.getTime() - 1);
     var cval=this.getCookie(name);
+    if(path == null || path == undefined){
+      path = '/'
+    }
     if(cval!=null)
-      document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+      document.cookie= name + "="+cval+";expires="+exp.toGMTString()+";path="+path;
   }
 }

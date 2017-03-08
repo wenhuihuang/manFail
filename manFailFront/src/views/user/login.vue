@@ -78,9 +78,9 @@
                   let loginErrorInfo = _this.$store.getters.getLoginErrorInfo
                   let isLogin = _this.$store.getters.getIsLogin
                   if(loginErrorInfo.code == 401 && isLogin == false){
-                    _this.$router.push({ path: '/user/login' })
+                    _this.$router.push({ path: '/manFail/user/login' })
                   }else{
-                    _this.$router.push({ path: '/user/manage' })
+                    _this.$router.push({ path: '/manFail/user/manage' })
                   }
                 }
               }

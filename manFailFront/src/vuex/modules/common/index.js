@@ -6,7 +6,9 @@ import * as getters from './getters'
 import mutations from './mutations'
 
 const state = {
-  topTitle : 'menfail' //顶部标题
+  topTitle : 'menfail', //顶部标题
+  submitCompleted : true,
+  touchDirection : '' // up down let right
 }
 
 export default{
