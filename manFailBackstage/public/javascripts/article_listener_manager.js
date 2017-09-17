@@ -33,6 +33,40 @@ hwh.ListenerMgr = (function(){
         })
     }
 
+    var _postFile = function (data) {
+        //1.创建异步对象
+        var req = new XMLHttpRequest();
+
+        //2.设置参数
+        req.open("post", "/newBack/article/addSubmit", true);
+
+        //3.设置 请求 报文体 的 编码格式（设置为 表单默认编码格式）
+        req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        req.setRequestHeader("X_FILENAME", encodeURIComponent(data.name));
+        // req.setRequestHeader("")
+        //4.设置回调函数
+        req.onreadystatechange = function () {
+            //请求状态readyState=4准备就绪,服务器返回的状态码status=200接收成功
+            if (req.readyState == 4 && req.status == 200) {
+
+                if (req.responseText != "上传出错！") {
+                    changeName(req.responseText);
+                }
+            }
+        };
+
+        //4.发送异步请求
+        req.send("articleTitle="+data);//post传参在此处
+    }
+    
+    var _fn_ajaxSubmit = function () {
+        var file = $("[name='articleTitle']").val()
+        console.log(file)
+
+        _postFile(file)
+    }
+
 
 
     /*----------------------------------------------------*/
@@ -44,6 +78,7 @@ hwh.ListenerMgr = (function(){
     var _classNameListenerMap = {
         click : {
             'js_del' : _fn_del,
+            'js_ajaxSubmit':_fn_ajaxSubmit
         },
         mouseover : {
 

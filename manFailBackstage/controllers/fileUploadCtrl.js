@@ -82,4 +82,3 @@ var fileUploadCtrl = {
 }
 
 module.exports = fileUploadCtrl;
-
